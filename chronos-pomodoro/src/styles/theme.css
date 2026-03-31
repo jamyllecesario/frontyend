@@ -1,0 +1,45 @@
+/* Paleta nova – Beach / Suave e harmônica */
+:root {
+  /* Tons de fundo e neutros */
+  --gray-100: #e0f7fa; /* azul céu bem suave */
+  --gray-200: #b2ebf2;
+  --gray-300: #80deea;
+  --gray-400: #4dd0e1;
+  --gray-500: #26c6da;
+  --gray-600: #00bcd4;
+  --gray-700: #00acc1;
+  --gray-800: #0097a7;
+  --gray-900: #00838f;
+
+  /* Primárias – substituindo o laranja */
+  --primary-light: #ffb6b9; /* rosa claro / coral suave */
+  --primary: #ff6f91;       /* coral rosado */
+  --primary-dark: #d6456b;  /* rosa escuro / magenta suave */
+
+  /* Links */
+  --link-color: #ff6f91;
+  --link-hover: #d6456b;
+
+  /* Alertas / info */
+  --success: #66bb6a;  /* verde suave */
+  --warning: #ffca28;  /* amarelo vibrante */
+  --error: #e53935;    /* vermelho vivo */
+  --info: #29b6f6;     /* azul vibrante */
+
+  /* Textos sobre cores */
+  --text-over-primary: #ffffff;
+  --text-over-primary-dark: #ffffff;
+  --text-over-primary-light: #333333;
+  --text-over-success: #ffffff;
+  --text-over-warning: #333333;
+  --text-over-error: #ffffff;
+  --text-over-info: #ffffff;
+
+  /* Textos padrão */
+  --text-default: #263238; /* quase preto suave */
+  --text-muted: #607d8b;
+
+  /* Disabled */
+  --disabled: #b0bec5;
+  --text-disabled: #78909c;
+}
