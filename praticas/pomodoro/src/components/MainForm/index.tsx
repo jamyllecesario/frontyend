@@ -10,14 +10,20 @@ import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 import { Tips } from '../Tips';
 import { showMessage } from '../../adapters/showMessage';
+import { createTask, interruptTask } from '../../services/api';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
-  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || '';
 
-  function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
+  const lastTaskName =
+    state.tasks[state.tasks.length - 1]?.name || '';
+
+  async function handleCreateNewTask(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
+
     showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
@@ -30,6 +36,7 @@ export function MainForm() {
     }
 
     const nextCycle = getNextCycle(state.currentCycle);
+
     const nextCyleType = getNextCycleType(nextCycle);
 
     const newTask: TaskModel = {
@@ -42,18 +49,39 @@ export function MainForm() {
       type: nextCyleType,
     };
 
-    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+    await createTask(newTask);
+
+    dispatch({
+      type: TaskActionTypes.START_TASK,
+      payload: newTask,
+    });
+
     showMessage.success('Tarefa iniciada');
   }
 
-  function handleInterruptTask() {
+  async function handleInterruptTask() {
     showMessage.dismiss();
+
+    if (!state.activeTask) return;
+
+    await interruptTask(
+      state.activeTask.id,
+      Date.now()
+    );
+
     showMessage.error('Tarefa interrompida!');
-    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
+
+    dispatch({
+      type: TaskActionTypes.INTERRUPT_TASK,
+    });
   }
 
   return (
-    <form onSubmit={handleCreateNewTask} className='form' action=''>
+    <form
+      onSubmit={handleCreateNewTask}
+      className='form'
+      action=''
+    >
       <div className='formRow'>
         <DefaultInput
           labelText='task'
